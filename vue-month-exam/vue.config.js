@@ -3,9 +3,24 @@ module.exports = {
         open: true,
         before(app) {
             let data = require('./src/data/data.json')
+            let newData1;
+            // app.use(bodyParser.urlencoded({ extended: false }))
+            // app.use(bodyParser.json())
             app.get('/list_default', (req, res) => {
-                let newData = data.ranklist1;
-                res.send({ code: 200, values: newData })
+                newData1 = data.ranklist1;
+                res.send({ code: 200, values: newData1 })
+            })
+            app.get('/get_detail', (req, res) => {
+                let { id } = req.query
+                console.log(id, req.query)
+                let detailItem = newData1.filter(item => {
+                    if (item.id == id) {
+                        console.log(item.id, id)
+                        return item
+                    }
+                })
+                console.log(detailItem)
+                res.send({ values: detailItem })
             })
         }
     }

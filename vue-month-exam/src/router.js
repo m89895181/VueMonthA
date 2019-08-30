@@ -43,6 +43,11 @@ export default new Router({
                 },
             ]
         }, {
+            path: '/detail',
+            name: 'detail',
+            component: () =>
+                import ('./pages/detail.vue')
+        }, {
             path: '*',
             redirect: '/home',
             // route level code-splitting
