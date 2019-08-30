@@ -12,10 +12,8 @@ module.exports = {
             })
             app.get('/get_detail', (req, res) => {
                 let { id } = req.query
-                console.log(id, req.query)
                 let detailItem = newData1.filter(item => {
-                    if (item.id == id) {
-                        console.log(item.id, id)
+                    if (item.bookId * 1 == id * 1) {
                         return item
                     }
                 })
