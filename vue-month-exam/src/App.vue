@@ -11,11 +11,20 @@ export default {
 };
 </script>
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
 #app,
 html,
 body {
   width: 100%;
   height: 100%;
+}
+a {
+  text-decoration: none;
 }
 #app {
   display: flex;
@@ -31,7 +40,7 @@ body {
     flex: 1;
     text-align: center;
   }
-  &.router-link-exact-active {
+  .router-link-active {
     color: yellow;
   }
 }
