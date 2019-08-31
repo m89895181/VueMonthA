@@ -17,7 +17,6 @@ module.exports = {
                         return item
                     }
                 })
-                console.log(detailItem)
                 res.send({ values: detailItem })
             })
         }

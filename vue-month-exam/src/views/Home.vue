@@ -13,7 +13,7 @@
         <!-- Optional controls -->
       </swiper>
     </div>
-    <HomeList :defaultList="defaultList"></HomeList>
+    <HomeList></HomeList>
   </div>
 </template>
 
@@ -21,6 +21,7 @@
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import HomeList from "../components/HomeList.vue";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   components: {
@@ -35,23 +36,20 @@ export default {
         // 所有的参数同 swiper 官方 api 参数
         // ...
         autoplay: true
-      },
-      defaultList: []
+      }
     };
   },
   created() {
-    this.$http({
-      url: "/list_default",
-      method: "get"
-    }).then(res => {
-      this.defaultList = res.data.values;
-      console.log(res.data.values);
-    });
+    this.getDefault_List();
   },
   computed: {
+    ...mapState(["defaultList"]),
     swiper() {
       return this.$refs.mySwiper.swiper;
     }
+  },
+  methods: {
+    ...mapActions(["getDefault_List"])
   },
   mounted() {
     // current swiper instance

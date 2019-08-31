@@ -6,10 +6,13 @@
 
 <script>
 import ListItem from "../components/ListItem.vue";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
-  props: ["defaultList"],
   components: {
     ListItem
+  },
+  computed: {
+    ...mapState(["defaultList"])
   }
 };
 </script>
