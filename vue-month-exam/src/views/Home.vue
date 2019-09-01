@@ -40,7 +40,9 @@ export default {
     };
   },
   created() {
-    this.getDefault_List();
+    if (!localStorage.getItem("defaultList")) {
+      this.getDefault_List();
+    }
   },
   computed: {
     ...mapState(["defaultList"]),

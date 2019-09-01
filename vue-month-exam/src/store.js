@@ -8,7 +8,9 @@ export default new Vuex.Store({
     state: {
         cart: [],
         defaultList: [],
-        detail: {}
+        detail: {},
+        user: '',
+        pwd: ''
     },
     mutations: {
         addCart(state, payload) {
@@ -18,7 +20,7 @@ export default new Vuex.Store({
             } else {
                 state.cart.push(payload.values)
             }
-            localStorage.setItem('cart', state.cart)
+            localStorage.setItem('cart', JSON.stringify(state.cart))
         },
         changeDefaultList(state, payload) {
             state.defaultList = payload
@@ -39,7 +41,11 @@ export default new Vuex.Store({
             }
 
             this.commit("changeDefaultList", ddd)
-            localStorage.setItem('defaultList', JSON.stringify(ddd))
+
+        },
+        changeToken(state, payload) {
+            state.user = payload.user;
+            state.pwd = payload.pwd
         }
     },
     actions: {
@@ -65,7 +71,6 @@ export default new Vuex.Store({
                 }).then(res => {
                     //this.defaultList = res.data.values;
                     commit("changeDefaultList", res.data.values)
-
                 });
             }
 

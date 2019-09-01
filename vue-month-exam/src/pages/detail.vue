@@ -41,9 +41,17 @@ export default {
         item => item.bookId == res.data.values[0].bookId
       );
       let newData = Object.assign({}, res.data.values[0], {
-        flag: res.data.values[0].flag ? res.data.values[0].flag : false
+        flag: false
       });
-      console.log(res.data.values[0].flag);
+      let newState = this.defaultList.map((item, index) => {
+        if (item.bookId == res.data.values[0].bookId) {
+          return newData;
+        } else {
+          return item;
+        }
+      });
+      this.changeDefaultList(newState);
+      console.log(res.data.values[0]);
       this.detailItem = newData;
       this.changeDetail(newData);
     });
@@ -52,13 +60,20 @@ export default {
     ...mapState(["detail", "defaultList"])
   },
   methods: {
-    ...mapMutations(["addCart", "changeDetail"]),
+    ...mapMutations(["addCart", "changeDetail", "changeDefaultList"]),
     handleClick() {
-      this.flag = !this.flag;
       console.log(this.detailItem);
       this.detailItem.flag = !this.detail.flag;
       this.changeDetail(this.detailItem);
       this.addCart({ values: this.detail });
+      let newState = this.defaultList.map((item, index) => {
+        if (item.bookId == detailItem.bookId) {
+          item.flag = !item.flag;
+        }
+        return item;
+      });
+      this.changeDefaultList(newState);
+      localStorage.setItem("defaultList", JSON.stringify(newState));
     }
   }
 };

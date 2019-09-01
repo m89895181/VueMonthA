@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
     routes: [{
             path: '/',
             name: 'home',
@@ -48,6 +48,11 @@ export default new Router({
             component: () =>
                 import ('./pages/detail.vue')
         }, {
+            path: '/login',
+            name: 'login',
+            component: () =>
+                import ('./pages/login.vue')
+        }, {
             path: '*',
             redirect: '/home',
             // route level code-splitting
@@ -57,3 +62,21 @@ export default new Router({
         }
     ]
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.path == '/home/bookshelf') {
+        let token = JSON.parse(localStorage.getItem('token'))
+        if (token) {
+            next()
+        } else {
+            next({
+                path: '/login'
+            })
+        }
+    } else {
+        console.log(to, from, next)
+        next()
+    }
+})
+
+export default router
